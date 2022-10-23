@@ -48,6 +48,7 @@ if __name__ == '__main__':
     main_window = MainWindow()
     main_window.display_pfp()
     main_window.place_game_buttons()
+    main_window.set_completer()
     image_status = ImageRetriever()
     image_status.request_imageurl()
     main_window.show()

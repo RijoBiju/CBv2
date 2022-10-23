@@ -24,7 +24,6 @@ class ImageRetriever:
         self.get_image.finished.connect(self.image_final)
 
     def request_imageurl(self):
-        global urls, buttons
         for url in urls:
             self.start_image(url)
     
@@ -35,7 +34,7 @@ class ImageRetriever:
 
     @Slot(QNetworkReply)
     def image_final(self, reply):
-        global counter, buttons, urls
+        global counter, urls
         try:
             target = reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
             if reply.error():
@@ -50,9 +49,10 @@ class ImageRetriever:
             icon = QIcon(pixmap)
             button = buttons[counter]
             button.setIcon(icon)
+            button.setObjectName(game_names[counter])
             counter += 1
             if counter >= len(buttons):
-                del buttons, urls, counter
+                del urls, counter
         except:
             pass
 
@@ -66,13 +66,12 @@ class MainWindow(QMainWindow):
 
         self.username = username
 
+        self.ui.lineEdit.textChanged.connect(self.update_display)
         self.ui.gamesPushButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.games_page))
         self.ui.closePushButton.clicked.connect(lambda: self.close())
         self.ui.minimizePushButton.clicked.connect(lambda: self.showMinimized())
 
         helpers.discordrpc()
-        self.display_pfp()
-        self.place_game_buttons()
 
     def display_pfp(self) -> None:
         if self.username != constants.DEFAULT_USERNAME:
@@ -92,11 +91,11 @@ class MainWindow(QMainWindow):
         xaxis = 0
         yaxis = 0
         for game in games_data.values():
-            if game.get("type") != 'wow' or game.get("type") != 'app':
-                game_name = game.get("game_name")
-                button = helpers.create_button(button_name=game.get(game_name))
+            if game["type"] == 'normal':
+                game_name = game["game_name"]
+                button = helpers.create_button()
                 buttons.append(button)
-                urls.append(game.get("image_url"))
+                urls.append(game["image_url"])
                 game_names.append(game_name)
                 xaxis, yaxis = helpers.determine_xandyaxis(xaxis, yaxis)
                 self.ui.gridLayout.addWidget(button, xaxis, yaxis)
@@ -105,3 +104,10 @@ class MainWindow(QMainWindow):
         completer = QCompleter(game_names)
         completer.setCaseSensitivity(Qt.CaseInsensitive)
         self.ui.lineEdit.setCompleter(completer)
+
+    def update_display(self, text):
+        for button in buttons:
+            if text in button.objectName():
+                button.setVisible(True)
+            else:
+                button.setVisible(False)

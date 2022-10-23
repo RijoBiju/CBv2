@@ -50,9 +50,8 @@ def mask_image(imgdata, imgtype ='png', size = 64):
   
     return pm
 
-def create_button(sub='', width=177, height=265, iconw=177, iconh=260, button_name='name',):
+def create_button(sub='', width=177, height=265, iconw=177, iconh=260):
     button = QPushButton(sub)
-    button.setObjectName(u"{}".format(button_name))
     button.setMinimumSize(QSize(width, height))
     button.setMaximumSize(QSize(width, height))
     button.setIconSize(QSize(iconw, iconh))
