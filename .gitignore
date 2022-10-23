@@ -1,0 +1,9 @@
+venv
+config
+src/__pycache__
+src/controller/__pycache__
+src/controller/login/__pycache__
+src/controller/mainwindow/__pycache__
+src/view/__pycache__
+splashscreen.gif
+games_page.json
