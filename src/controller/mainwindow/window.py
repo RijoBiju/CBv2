@@ -12,10 +12,11 @@ from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkReques
 from PyQt5.QtCore import QUrl
 
 PC_USER = getpass.getuser()
-urls = []
 buttons = []
+urls = []
 game_names = []
 counter = 0
+gui_status = None
 
 class ImageRetriever:
 
@@ -23,9 +24,10 @@ class ImageRetriever:
         self.get_image = QNetworkAccessManager()
         self.get_image.finished.connect(self.image_final)
 
-    def request_imageurl(self):
-        for url in urls:
-            self.start_image(url)
+    def request_imageurl(self) -> None:
+        gui_status.setText(f"Loading Image: {counter} / {len(buttons) - 1}")
+        self.current_button = buttons[counter]
+        self.start_image(urls[counter])
     
     @Slot(str)
     def start_image(self, url):
@@ -35,6 +37,7 @@ class ImageRetriever:
     @Slot(QNetworkReply)
     def image_final(self, reply):
         global counter, urls
+
         try:
             target = reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
             if reply.error():
@@ -44,20 +47,27 @@ class ImageRetriever:
                 newUrl = reply.url().resolved(target)
                 self.start_image(newUrl)
                 return
+
             pixmap = QPixmap()
             pixmap.loadFromData(bytes(reply.readAll()))
             icon = QIcon(pixmap)
-            button = buttons[counter]
-            button.setIcon(icon)
-            button.setObjectName(game_names[counter])
+
+            self.current_button.setIcon(icon)
             counter += 1
+
             if counter >= len(buttons):
                 del urls, counter
+                for button in buttons:
+                    button.setVisible(True)
+            else:
+                self.request_imageurl()
         except:
             pass
 
 class MainWindow(QMainWindow):
     def __init__(self, username=constants.DEFAULT_USERNAME):
+        global gui_status
+
         QMainWindow.__init__(self)
         self.ui = CBLauncher()
         self.ui.setupUi(self)
@@ -65,6 +75,7 @@ class MainWindow(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         self.username = username
+        gui_status = self.ui.pushButton_5
 
         self.ui.lineEdit.textChanged.connect(self.update_display)
         self.ui.gamesPushButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.games_page))
@@ -93,12 +104,13 @@ class MainWindow(QMainWindow):
         for game in games_data.values():
             if game["type"] == 'normal':
                 game_name = game["game_name"]
-                button = helpers.create_button()
+                button = helpers.create_button(button_name=game_name)
                 buttons.append(button)
                 urls.append(game["image_url"])
                 game_names.append(game_name)
                 xaxis, yaxis = helpers.determine_xandyaxis(xaxis, yaxis)
                 self.ui.gridLayout.addWidget(button, xaxis, yaxis)
+                button.setVisible(False)
     
     def set_completer(self):
         completer = QCompleter(game_names)

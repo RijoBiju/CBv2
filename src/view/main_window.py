@@ -12,6 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+from view import gui_images
 #import resources_rc
 #import dunno_rc
 #import font_rc
@@ -79,7 +80,7 @@ class CBLauncher(object):
 "}\n"
 "#topLogo {\n"
 "	background-color: rgb(33, 37, 43);\n"
-"	background-image: url(:/games/cb);\n"
+"	background-image: url(:/images/images/logo/CB);\n"
 "	background-position: centered;\n"
 "	background-repeat: no-repeat;\n"
 "}\n"
@@ -606,7 +607,7 @@ class CBLauncher(object):
         self.smallpfpLabel = QLabel(self.topLogoInfo)
         self.smallpfpLabel.setObjectName(u"smallpfpLabel")
         self.smallpfpLabel.setGeometry(QRect(10, 5, 38, 38))
-        self.smallpfpLabel.setPixmap(QPixmap(u":/games/cb"))
+        self.smallpfpLabel.setPixmap(QPixmap(u":/images/images/logo/CB"))
         self.smallpfpLabel.setScaledContents(True)
 
         self.verticalLayout_3.addWidget(self.topLogoInfo)
@@ -1070,7 +1071,7 @@ class CBLauncher(object):
 "background-color: rgb(12, 100, 203);\n"
 "}")
         icon3 = QIcon()
-        icon3.addFile(u":/games/cyberpunk", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/games/images/games/cyberpunk", QSize(), QIcon.Normal, QIcon.Off)
         self.cyberpunk_2077_download.setIcon(icon3)
         self.cyberpunk_2077_download.setIconSize(QSize(200, 295))
 
@@ -1088,7 +1089,7 @@ class CBLauncher(object):
 "background-color: rgb(12, 100, 203);\n"
 "}")
         icon4 = QIcon()
-        icon4.addFile(u":/games/rdr2", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u":/games/images/games/rdr2", QSize(), QIcon.Normal, QIcon.Off)
         self.red_dead_redemption_2_download.setIcon(icon4)
         self.red_dead_redemption_2_download.setIconSize(QSize(200, 295))
 
@@ -1106,7 +1107,7 @@ class CBLauncher(object):
 "background-color: rgb(12, 100, 203);\n"
 "}")
         icon5 = QIcon()
-        icon5.addFile(u":/games/valhalla", QSize(), QIcon.Normal, QIcon.Off)
+        icon5.addFile(u":/games/images/games/valhalla", QSize(), QIcon.Normal, QIcon.Off)
         self.assassins_creed_valhalla_download.setIcon(icon5)
         self.assassins_creed_valhalla_download.setIconSize(QSize(200, 295))
 
@@ -1124,7 +1125,7 @@ class CBLauncher(object):
 "background-color: rgb(12, 100, 203);\n"
 "}")
         icon6 = QIcon()
-        icon6.addFile(u":/games/medium", QSize(), QIcon.Normal, QIcon.Off)
+        icon6.addFile(u":/games/images/games/medium", QSize(), QIcon.Normal, QIcon.Off)
         self.the_medium_download.setIcon(icon6)
         self.the_medium_download.setIconSize(QSize(200, 295))
 
@@ -1149,7 +1150,7 @@ class CBLauncher(object):
 "background-color: rgb(12, 100, 203);\n"
 "}")
         icon7 = QIcon()
-        icon7.addFile(u":/games/control", QSize(), QIcon.Normal, QIcon.Off)
+        icon7.addFile(u":/games/images/games/control", QSize(), QIcon.Normal, QIcon.Off)
         self.control_download.setIcon(icon7)
         self.control_download.setIconSize(QSize(200, 295))
 
@@ -1167,7 +1168,7 @@ class CBLauncher(object):
 "background-color: rgb(12, 100, 203);\n"
 "}")
         icon8 = QIcon()
-        icon8.addFile(u":/games/detroit", QSize(), QIcon.Normal, QIcon.Off)
+        icon8.addFile(u":/games/images/games/detroit", QSize(), QIcon.Normal, QIcon.Off)
         self.detroit_become_human_download.setIcon(icon8)
         self.detroit_become_human_download.setIconSize(QSize(200, 295))
 
@@ -1185,7 +1186,7 @@ class CBLauncher(object):
 "background-color: rgb(12, 100, 203);\n"
 "}")
         icon9 = QIcon()
-        icon9.addFile(u":/games/fh4", QSize(), QIcon.Normal, QIcon.Off)
+        icon9.addFile(u":/games/images/games/fh5", QSize(), QIcon.Normal, QIcon.Off)
         self.forza_horizon_5_download.setIcon(icon9)
         self.forza_horizon_5_download.setIconSize(QSize(200, 295))
 
