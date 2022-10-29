@@ -1773,7 +1773,7 @@ class CBLauncher(object):
         self.page_4.setObjectName(u"page_4")
         self.label_11 = QLabel(self.page_4)
         self.label_11.setObjectName(u"label_11")
-        self.label_11.setGeometry(QRect(0, 0, 1191, 661))
+        self.label_11.setGeometry(QRect(0, 0, 1170, 661))
         self.label_11.setScaledContents(True)
         self.frame_3 = QFrame(self.page_4)
         self.frame_3.setObjectName(u"frame_3")
@@ -1945,7 +1945,7 @@ class CBLauncher(object):
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.label_23 = QLabel(self.frame_4)
         self.label_23.setObjectName(u"label_23")
-        self.label_23.setGeometry(QRect(380, 160, 400, 300))
+        self.label_23.setGeometry(QRect(500, 160, 400, 300))
         self.stackedWidget.addWidget(self.page_5)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)

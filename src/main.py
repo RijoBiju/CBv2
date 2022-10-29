@@ -37,19 +37,18 @@ if __name__ == '__main__':
 
     checker.create_config_folder()
     
-    '''movie = QMovie(constants.SPLASHSCREEN_LOCATION)
-    splash = helpers.MovieSplashScreen(movie)
-    splash.show()
-    splash.showMessage("Loading images", QtCore.Qt.AlignmentFlag.AlignBottom, )
-    splash.movie.start()
-    start = time.time()
-    while movie.state() == QMovie.Running and time.time() < start + 17:
-        app.processEvents()'''
     main_window = MainWindow()
     main_window.display_pfp()
     main_window.place_game_buttons()
     image_status = ImageRetriever()
     image_status.request_imageurl()
+    movie = QMovie(constants.SPLASHSCREEN_LOCATION)
+    splash = helpers.MovieSplashScreen(movie)
+    splash.show()
+    splash.movie.start()
+    start = time.time()
+    while movie.state() == QMovie.Running and time.time() < start + 17:
+        app.processEvents()
     #main_window.set_completer()
     main_window.show()
     '''if checker.create_settings_file():
