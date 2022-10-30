@@ -10,6 +10,7 @@ from controller.mainwindow import helpers
 from controller.mainwindow import constants
 from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
 from PyQt5.QtCore import QUrl
+from controller.download.download_widget import DownloadWindow
 
 PC_USER = getpass.getuser()
 buttons = []
@@ -84,6 +85,7 @@ class MainWindow(QMainWindow):
         self.ui.closePushButton.clicked.connect(lambda: self.close())
         self.ui.minimizePushButton.clicked.connect(lambda: self.showMinimized())
         self.ui.pushButton_6.clicked.connect(self.play_trailer)
+        self.ui.pushButton_7.clicked.connect(self.set_download_window)
 
         helpers.discordrpc()
 
@@ -231,7 +233,33 @@ class MainWindow(QMainWindow):
             
             self.current_label.setPixmap(pixmap)
 
+            if counter == 1:
+                self.ui.label_24.setPixmap(pixmap)
+
             counter += 1
             self.request_backgroundimage()
         except:
             pass
+
+    def adjust_stacked_widget(self):
+        try:
+            self.stackedwidget_count = self.ui.stackedWidget_2.count()
+            if self.stackedwidget_count > 1:
+                self.ui.stackedWidget_2.removeWidget(self.stackedwidget_count - 1)
+        except:
+            pass
+
+    def set_download_window(self):
+        download_window = DownloadWindow()
+        download_window.display_free_space()
+        with open('games_page.json', encoding='utf8') as gamedata_file:
+            games_data = json.load(gamedata_file)
+        game = games_data[self.pressed_button.objectName().lower().replace(' ', '_') + '_download']
+        download_window.place_game_details(game["game_name"], game["game_size"], game["game_download"], game["exepath"])
+        self.open_download_window(download_window)
+
+    def open_download_window(self, download_window):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page)
+        self.adjust_stacked_widget()
+        self.ui.stackedWidget_2.addWidget(download_window)
+        self.ui.stackedWidget_2.setCurrentIndex(self.stackedwidget_count)
